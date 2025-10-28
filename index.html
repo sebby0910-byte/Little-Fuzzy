@@ -23,7 +23,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem 1.5rem;
     background: rgba(0,0,0,0.8);
     z-index: 1000;
   }
@@ -74,7 +74,7 @@
   .globe-label {
     color: #65CB05;
     font-size: 0.8rem;
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
     transition: opacity 1s ease;
     text-align: center;
   }
@@ -90,12 +90,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 4vh;
+    margin-bottom: 8vh;
   }
 
   .log, .poem {
     white-space: pre-wrap;
-    line-height: 1.2;
+    line-height: 1.6;
     font-size: 1rem;
     width: 45%;
   }
@@ -121,17 +121,56 @@
   .label-human { font-weight: bold; margin-right: 6px; color: #fff; }
   .label-nature { font-weight: bold; margin-right: 6px; color: #0DCB4B; }
 
-  /* SEZIONE FINALE */
-  .final-section {
-    margin: 15vh auto;
-    max-width: 800px;
-    font-size: 1rem;
-    line-height: 1.4;
+  .access-button {
+    border: 1px solid #65CB05;
+    background: none;
     color: #fff;
-    white-space: pre-wrap;
-    text-align: center;
+    padding: 0.6rem 2.9rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+    margin: 8rem auto;
   }
+  .access-button:hover { background: #65CB05; color: #000; }
 
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+
+    .log, .poem {
+      width: 100%;
+      font-size: 0.9rem;
+      text-align: left !important;
+    }
+
+    .poem {
+      margin-top: 1rem;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .ascii-sphere {
+      width: 90vmin;
+      height: 90vmin;
+    }
+
+    .globe-label {
+      font-size: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .access-button {
+      width: 90%;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+  }
 </style>
 </head>
 <body>
@@ -152,7 +191,7 @@
   <div class="globe-label">Little Fuzzy<br>by H. Beam Piper</div>
 </section>
 
-<!-- TESTO (LOGS + POEMS) -->
+<!-- TESTO -->
 <main class="stage">
 
   <div class="row">
@@ -161,7 +200,7 @@
 > atmospheric scan: initializing
 > orbital insertion: 0.04 km/s
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>The soil trembles gently,
+    <div class="poem"><span class="label-nature">NATURE:</span> The soil trembles gently,
 not from the engines, but from anticipation.
 It feels them arrive before they set foot.
 Metal and human breath intrude upon its quiet.</div>
@@ -174,7 +213,7 @@ Metal and human breath intrude upon its quiet.</div>
 > external sensors: operational
 > native life detected: low probability
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>Roots stir beneath the surface.
+    <div class="poem"><span class="label-nature">NATURE:</span> Roots stir beneath the surface.
 The rocks shift imperceptibly.
 A thousand unseen eyes
 watch from hollows, burrows, shadows.
@@ -190,7 +229,7 @@ I am listening.</div>
 > humidity: 42%
 > seismic activity: minimal
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>The wind sighs through canyons.
+    <div class="poem"><span class="label-nature">NATURE:</span> The wind sighs through canyons.
 The streams reflect the sky with tremors of fear.
 The forest holds its breath.
 Every leaf, every stone,
@@ -204,7 +243,7 @@ records the pulse of the intruders.</div>
 > scan perimeter: 1 km radius
 > anomalies: none detected
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>A faint vibration runs through the soil.
+    <div class="poem"><span class="label-nature">NATURE:</span> A faint vibration runs through the soil.
 A shimmer across the plains.
 Life watches, curious but cautious.
 The planet does not speak yet,
@@ -217,7 +256,7 @@ but it hums under its skin.</div>
 > flora index: 73% native coverage
 > fauna index: small mammals, unclassified
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>Leaves quiver as the machines hum.
+    <div class="poem"><span class="label-nature">NATURE:</span> Leaves quiver as the machines hum.
 Small creatures scatter; some hide, some observe.
 The planet feels the weight of observation,
 not extraction.
@@ -232,7 +271,7 @@ that have never been here before.</div>
 > mission objective: survey and report
 > first contact protocol: standby
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>They step onto the ground with cautious precision.
+    <div class="poem"><span class="label-nature">NATURE:</span> They step onto the ground with cautious precision.
 The Earth beneath their boots listens, stretches, shifts.
 The air smells of metal and fuel.
 But the soil tastes the memory of every previous touch,
@@ -245,7 +284,7 @@ every drop of rain, every silent wind.</div>
 > magnetic field: stable
 > chemical composition: normal
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>The planet’s heartbeat is slow.
+    <div class="poem"><span class="label-nature">NATURE:</span> The planet’s heartbeat is slow.
 A rhythm of stone and root.
 It senses curiosity and hesitation.
 It senses fear, even without voice.
@@ -259,7 +298,7 @@ It waits, patient, ancient.</div>
 > proximity: 200 meters
 > human presence: acknowledged
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>Small, strange eyes peer from the forests.
+    <div class="poem"><span class="label-nature">NATURE:</span> Small, strange eyes peer from the forests.
 Soft fur blends with shadows.
 They watch the intruders with innocent calculation.
 The planet feels their presence too:
@@ -273,7 +312,7 @@ tiny pulses of life, resonating with the land.</div>
 > water table: consistent
 > anomalies: minor
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>Wind carries scents unfamiliar.
+    <div class="poem"><span class="label-nature">NATURE:</span> Wind carries scents unfamiliar.
 The Earth stretches slightly under the boots.
 It tastes curiosity mixed with the sharp tang of machines.
 The trees whisper together.
@@ -287,7 +326,7 @@ The rocks hold their knowledge in silence.</div>
 > native species observed
 > environmental interference: minimal
 //"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature"></span>The first footprints press into the soft earth.
+    <div class="poem"><span class="label-nature">NATURE:</span> The first footprints press into the soft earth.
 The planet exhales slowly, sensing, remembering.
 Not anger, not fear, just awareness.
 A quiet pulse beneath metal and flesh:
@@ -295,42 +334,9 @@ this is their arrival,
 and the planet is awake.</div>
   </div>
 
+  <button class="access-button">[ EXTRACTION ]</button>
+
 </main>
-
-<!-- SEZIONE NARRATIVA -->
-<section class="final-section log" id="finalText" data-text="On Zarathustra, silence was never truly empty.
-Beneath the green canopies and the quiet air, something ancient was listening.
-The wind carried more than sound — it carried memory.
-The soil, the stones, the slow rivers — they all remembered.
-
-When the humans arrived, they brought light and noise.
-Machines hummed across the plains, metal touched roots, and the ground trembled softly.
-The planet did not resist; it simply observed.
-It watched these new beings chart its mountains, measure its air, name its rivers.
-Every number, every reading, was a small act of possession.
-Yet the planet remained calm, vast, patient.
-
-Then came the discovery.
-Small creatures, golden and curious, with eyes full of thought.
-The Fuzzies.
-They were not tools, not property, not animals — they were.
-They looked at humans not with fear, but with quiet understanding.
-They lived within the rhythm of the planet, not above it.
-
-For the first time, the humans hesitated.
-They began to see the world not as a resource, but as a voice.
-The planet spoke through its smallest beings — through soil, wind, and life.
-
-What had started as a mission of extraction became something else:
-a confrontation with consciousness itself.
-The question shifted from what can we take to what can we learn,
-and finally, what does the planet remember of us?
-
-Because every vibration, every step, every signal sent through the air —
-leaves an imprint.
-The planet stores it all, like data carved in stone and breath.
-It waits, silently, as humans learn what it truly means to be alive together.">
-</section>
 
 <script>
 /* ---- CREA GLOBO ASCII ---- */
@@ -390,7 +396,6 @@ function typeWriter(el,text,speed=14){
 document.addEventListener('DOMContentLoaded',()=>{
   const logs=[...document.querySelectorAll('.log')];
   const poems=[...document.querySelectorAll('.poem')];
-  const final=document.getElementById('finalText');
 
   async function playSequence(){
     for(let i=0;i<logs.length;i++){
@@ -399,11 +404,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       const raw=log.getAttribute('data-text')||'';
       await typeWriter(log,raw,14);
       if(poem){poem.classList.add('visible');await new Promise(r=>setTimeout(r,500));}
-    }
-    // infine, scrittura del testo finale
-    if(final){
-      const raw=final.getAttribute('data-text')||'';
-      await typeWriter(final,raw,12);
     }
   }
 
@@ -417,7 +417,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   },{threshold:0.3});
   logs.forEach(l=>l.textContent='');
-  if(final) final.textContent='';
   observer.observe(firstLog);
 });
 </script>
