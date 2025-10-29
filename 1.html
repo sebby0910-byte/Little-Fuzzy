@@ -1,419 +1,105 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Zarathustra Colony — Fusion Scroll</title>
-<style>
-  html,body{
-    height:100%;
-    margin:0;
-    background:#000; /* sfondo nero */
-    color:#fff; /* testo bianco */
-    font-family: "Courier New", monospace;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-
-  /* Barra di navigazione */
-  .top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    background: rgba(0, 0, 0, 0.8);
-    font-family: "Courier New", monospace;
-    z-index: 1000;
-  }
-
-  .top-nav .home {
-    margin-right: auto;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-
-  .top-nav .sections {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1.5rem;
-    margin-left: 88%;
-    transform: translateX(-50%);
-  }
-
-  .top-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-
-  .top-nav a:hover {
-    color: #65CB05;
-  }
-
-  /* Stage e righe */
-  .stage {
-    width:100%;
-    margin:0;
-    padding:80px 0 48px;
-    box-sizing:border-box;
-  }
-
-  .row {
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    margin-bottom: 25vh;
-    position:relative;
-    width:100%;
-  }
-
-  .log, .poem {
-    white-space: pre-wrap;
-    line-height:1.6;
-    font-size:1rem;
-    box-sizing:border-box;
-    padding: 6px 16px;
-    transition: opacity .45s ease, transform .45s ease;
-    min-height: 3.2em;
-    width:45%;
-  }
-
-  .log {
-    text-align:left;
-    margin-left:0;
-    color: #ffffff;
-  }
-
-  .poem {
-    color: #0DCB4B;
-    text-align:right;
-    opacity:0;
-    transform: translateY(8px);
-    margin-right:0;
-  }
-
-  /* Etichette HUMAN / NATURE */
-  .label-human {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 6px;
-    font-size: 0.85rem;
-    color: #ffffff;
-  }
-
-  .label-nature {
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 6px;
-    font-size: 0.85rem;
-    color: #0DCB4B;
-  }
-
-  .log::after {
-    content: "";
-    display: inline-block;
-    margin-left:2px;
-    background:white;
-    animation: blink 1s steps(1) infinite;
-    vertical-align: text-bottom;
-  }
-
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    50.01%, 100% { opacity: 0; }
-  }
-
-  .log.typed::after {
-    animation: none;
-    opacity: 0.3;
-  }
-
-  .poem.visible {
-    opacity:1;
-    transform: translateY(0);
-  }
-
-  @media (max-width:900px){
-    .row {
-      flex-direction:column;
-      align-items:flex-start;
-      margin-bottom:4rem;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Fuzzy — Capitolo 1</title>
+  <style>
+    body {
+      margin: 0;
+      background: #3012d5;
+      color: #FF6D00;
+      font-family: "Courier New", monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
     }
-    .log, .poem {
-      width:100%;
-      text-align:left;
-      padding:6px 12px;
-      opacity:1 !important;
-      transform:none !important;
+
+    /* NAV BAR */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: rgba(48, 18, 213, 0.95);
+      padding: 1rem;
+      z-index: 1000;
     }
-    .top-nav .sections {
-      margin-left: auto;
-      transform: none;
-      flex-wrap: wrap;
-      gap: 1rem;
+
+    .top-nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 0.6rem;
+      font-size: 0.9rem;
+      transition: color 0.2s;
     }
-  }
+    .top-nav a:hover {
+      color: #FF6D00;
+    }
 
-  .extraction-btn-container {
-    width: 100%;
-    text-align: center;
-    margin: 4rem 0; 
-  }
+    h1 {
+      margin-top: 5rem;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      color: #FF6D00;
+    }
 
-  .access-button {
-    border: 1px solid #65CB05;
-    background: none;
-    color: #ffffff;
-    padding: 0.6rem 2.9rem;
-    font-size: 1rem;
-    cursor: pointer;
-    font-family: "Courier New", monospace;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .access-button:hover {
-    background: #65CB05;
-    color: black;
-  }
-</style>
+    p {
+      max-width: 700px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-    <audio id="typing-sound" src="https://www.youtube.com/watch?v=koI6xFoRxjg" preload="auto"></audio>
 
+  <!-- NAV -->
+  <nav class="top-nav">
+    <a href="0.html">0</a>
+    <a href="1.html">1</a>
+    <a href="2.html">2</a>
+    <a href="3.html">3</a>
+    <a href="4.html">4</a>
+    <a href="5.html">5</a>
+    <a href="6.html">6</a>
+    <a href="7.html">7</a>
+    <a href="8.html">8</a>
+    <a href="9.html">9</a>
+    <a href="10.html">10</a>
+    <a href="11.html">11</a>
+    <a href="12.html">12</a>
+    <a href="13.html">13</a>
+    <a href="14.html">14</a>
+    <a href="15.html">15</a>
+    <a href="16.html">16</a>
+    <a href="17.html">17</a>
+    <a href="18.html">18</a>
+    <a href="19.html">19</a>
+  </nav>
 
-<!-- Barra superiore -->
-<nav class="top-nav">
-  <a href="index.html" class="home">0</a>
-  <div class="sections">
-      <a href="1.html" class="home">1</a>
-      <a href="2.html" class="home">2</a>
-      <a href="3.html" class="home">3</a>
-      <a href="4.html" class="home">4</a>
-      <a href="5.html" class="home">5</a>
-  </div>
-</nav>
-
-<main class="stage">
-
-  <!-- Righe log / poesie con etichette HUMAN / NATURE -->
-  <div class="row">
-    <div class="log" data-text="system boot // colony approach mode
-&gt; planetary coordinates locked: 12-ZR-44
-&gt; atmospheric scan: initializing
-&gt; orbital insertion: 0.04 km/s
-//"><span class="label-human">HUMAN:</span></div>
-    <div class="poem"><span class="label-nature">NATURE:</span><br>The soil trembles gently,
-not from the engines, but from anticipation.
-It feels them arrive before they set foot.
-Metal and human breath intrude upon its quiet.</div>
-  </div>
-
-  <div class="row">
-    <div class="log" data-text="log_001 // landing sequence
-&gt; shuttle velocity: stable
-&gt; touchdown: nominal
-&gt; external sensors: operational
-&gt; native life detected: low probability
-//"></div>
-    <div class="poem"><span class="label-nature">NATURE:</span><br>Roots stir beneath the surface.
-The rocks shift imperceptibly.
-A thousand unseen eyes
-watch from hollows, burrows, shadows.
-The planet notices the newcomers.
-It whispers in frequencies humans cannot hear.
-
-I am listening.</div>
-  </div>
-
-  <div class="row">
-    <div class="log" data-text="log_002 // environmental scan
-&gt; temperature: 23.4°C
-&gt; oxygen: 21.8%
-&gt; humidity: 42%
-&gt; seismic activity: minimal
-//"></div>
-     <div class="poem"><span class="label-nature">NATURE:</span><br>The wind sighs through canyons.
-The streams reflect the sky with tremors of fear.
-The forest holds its breath.
-Every leaf, every stone,
-records the pulse of the intruders.</div>
-  </div>
-
-      <div class="row">
-     <div class="log" data-text="log_003 // reconnaissance drone // deployment
-&gt; drone ID: X-12
-&gt; status: operational
-&gt; scan perimeter: 1 km radius
-&gt; anomalies: none detected
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>A faint vibration runs through the soil.
-A shimmer across the plains.
-Life watches, curious but cautious.
-The planet does not speak yet,
-but it hums under its skin.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_004 // resource survey // preliminary
-&gt; mineral analysis: trace metals
-&gt; flora index: 73% native coverage
-&gt; fauna index: small mammals, unclassified
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>Leaves quiver as the machines hum.
-Small creatures scatter; some hide, some observe.
-The planet feels the weight of observation,
-not extraction.
-It notes the shapes and the sounds
-that have never been here before.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_005 // colony check-in
-&gt; shuttle crew: 5 humans
-&gt; life support: nominal
-&gt; mission objective: survey and report
-&gt; first contact protocol: standby
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>They step onto the ground with cautious precision.
-The Earth beneath their boots listens, stretches, shifts.
-The air smells of metal and fuel.
-But the soil tastes the memory of every previous touch,
-every drop of rain, every silent wind.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_006 // sensory integration // initial readings
-&gt; atmosphere: breathable
-&gt; magnetic field: stable
-&gt; chemical composition: normal
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>The planet’s heartbeat is slow.
-A rhythm of stone and root.
-It senses curiosity and hesitation.
-It senses fear, even without voice.
-It waits, patient, ancient.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_007 // reconnaissance log
-&gt; Fuzzies sighted: preliminary
-&gt; behavior: cautious, observing
-&gt; proximity: 200 meters
-&gt; human presence: acknowledged
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>Small, strange eyes peer from the forests.
-Soft fur blends with shadows.
-They watch the intruders with innocent calculation.
-The planet feels their presence too:
-tiny pulses of life, resonating with the land.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_008 // terrain stability // initial
-&gt; soil density: firm
-&gt; seismic stability: low risk
-&gt; water table: consistent
-&gt; anomalies: minor
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>Wind carries scents unfamiliar.
-The Earth stretches slightly under the boots.
-It tastes curiosity mixed with the sharp tang of machines.
-The trees whisper together.
-The rocks hold their knowledge in silence.</div>
-      </div>
-
-      <div class="row">
-        <div class="log" data-text="log_009 // arrival summary // preliminary
-&gt; all systems nominal
-&gt; crew acclimating
-&gt; native species observed
-&gt; environmental interference: minimal
-//"></div>
-         <div class="poem"><span class="label-nature">NATURE:</span><br>The first footprints press into the soft earth.
-The planet exhales slowly, sensing, remembering.
-Not anger, not fear, just awareness.
-A quiet pulse beneath metal and flesh:
-this is their arrival,
-and the planet is awake.</div>
-      </div>
-
-
-
-
-  <!-- Continua con tutte le altre righe -->
-
-  <div class="extraction-btn-container">
-    <a href="2.html">
-      <button class="access-button">[ EXTRACTION ]</button>
-    </a>
-  </div>
-
-</main>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const logs = [...document.querySelectorAll(".log")];
-  const poems = [...document.querySelectorAll(".poem")];
-
-  function decodeEntities(str) {
-    const textarea = document.createElement("textarea");
-    textarea.innerHTML = str;
-    return textarea.value;
-  }
-
-  function typeWriter(el, text, speed = 14) {
-    return new Promise((resolve) => {
-      el.textContent = "";
-      let i = 0;
-      function step() {
-        if (i < text.length) {
-          el.textContent += text.charAt(i);
-          i++;
-          const ch = text.charAt(i - 1);
-          const extra = ch === "\n" ? 100 : 0;
-          setTimeout(step, speed + Math.random() * 15 + extra);
-        } else {
-          el.classList.add("typed");
-          resolve();
-        }
-      }
-      step();
-    });
-  }
-
-  async function playSequence() {
-    for (let i = 0; i < logs.length; i++) {
-      const log = logs[i];
-      const poem = poems[i];
-      const raw = log.getAttribute("data-text") || "";
-      const text = decodeEntities(raw);
-      await typeWriter(log, text, 14);
-      if (poem) {
-        poem.classList.add("visible");
-        await new Promise(r => setTimeout(r, 500));
-      }
-    }
-  }
-
-  const firstLog = logs[0];
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        observer.unobserve(firstLog);
-        playSequence();
-      }
-    });
-  }, { threshold: 0.3 });
-
-  logs.forEach(l => l.textContent = "");
-  observer.observe(firstLog);
-});
-</script>
+  <!-- CAPITOLO 1 -->
+  <main>
+    <h1>Capitolo 1</h1>
+    <p>
+      Jack Holloway, un vecchio cercatore indipendente su Zarathustra, 
+      vive in una capanna isolata tra le foreste del pianeta.  
+      Un giorno, mentre torna a casa, incontra delle piccole creature 
+      pelose mai viste prima.  
+      Sono curiose, intelligenti, sembrano comunicare tra loro e con lui.  
+      Jack le battezza “Fuzzies” e presto stringe un legame con loro, 
+      offrendogli cibo e ospitalità.  
+    </p>
+    <p>
+      Quell’incontro segna l’inizio di una grande domanda:  
+      i Fuzzies sono semplici animali, oppure esseri senzienti?  
+      La risposta cambierà per sempre il destino del pianeta.
+    </p>
+  </main>
 
 </body>
 </html>
