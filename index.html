@@ -15,16 +15,7 @@
       scroll-behavior: smooth;
       
     }
-<nav class="top-nav">
-  <a href="index.html" class="home">0</a>
-  <div class="sections">
-      <a href="1.html" class="home">1</a>
-      <a href="2.html" class="home">2</a>
-      <a href="3.html" class="home">3</a>
-      <a href="4.html" class="home">4</a>
-      <a href="5.html" class="home">5</a>
-  </div>
-</nav>
+
     /* NAV BAR */
     .top-nav {
       position: fixed;
@@ -34,7 +25,7 @@
       display: flex;
       align-items: center;
       padding: 1.5rem 2rem;
-      background: transparent;
+      background: #3012d5;
       z-index: 1000;
     }
     .top-nav a {
@@ -322,6 +313,36 @@
 .fragment:nth-child(odd) { color: #ffffff; } /* bianco */
 .fragment:nth-child(even) { color: #FF6D00; } /* blu */
 
+/* ==== Pila caotica a fondo pagina ==== */
+#pile {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34vh;            /* altezza del mucchio */
+  pointer-events: none;    /* clic passano attraverso */
+  z-index: 5;
+}
+
+/* stato durante la caduta */
+.falling {
+  position: fixed !important;
+  margin: 0 !important;
+  transition:
+    top 1.1s cubic-bezier(.25,.9,.2,1.05),
+    left 1.1s cubic-bezier(.25,.9,.2,1.05),
+    transform 1.1s cubic-bezier(.25,.9,.2,1.05);
+  transform-origin: 50% 50%;
+  z-index: 9;
+}
+
+/* stato finale nella pila */
+.piled {
+  position: absolute !important;
+  margin: 0 !important;
+  transform-origin: 50% 50%;
+  z-index: 10;
+}
 
   </style>
 </head>
@@ -331,10 +352,10 @@
   <nav class="top-nav">
     <a href="index.html">0</a>
     <a href="1.html">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
+    <a href="2.html">2</a>
+    <a href="3.html">3</a>
+    <a href="4.html">4</a>
+   
   </nav>
 
   <!-- GLOBO -->
@@ -937,7 +958,106 @@ const fragObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 
 fragments.forEach(f => fragObserver.observe(f));
-  </script>
+    /* ==== CADUTA CAOTICA E ACCUMULO IN FONDO ==== */
+/* Selettori degli elementi che vuoi far cadere nel mucchio */
+const FALL_SELECTORS = [
+  '.row',          /* i blocchi HUMAN/NATURE */
+  '.spiral-text',  /* i pezzi della spirale */
+  '.fragment',     /* eventuali frammenti 4a parte */
+  '.postcard'      /* eventuali cartoline */
+].join(',');
 
+let hasFallen = false;
+
+function collapseToPile() {
+  if (hasFallen) return;
+  const pile = document.getElementById('pile');
+  if (!pile) return;
+
+  const pileRect = pile.getBoundingClientRect();
+  const viewW = window.innerWidth;
+
+  const targets = Array.from(document.querySelectorAll(FALL_SELECTORS))
+    .filter(el => el.offsetParent !== null); // solo visibili
+
+  if (!targets.length) return;
+
+  hasFallen = true;
+
+  targets.forEach((el, idx) => {
+    const r = el.getBoundingClientRect();
+
+    // Fissa la dimensione per evitare reflow durante il detach
+    el.style.width  = r.width  + 'px';
+    el.style.height = r.height + 'px';
+
+    // Posizione di partenza (stato "sospeso")
+    el.classList.add('falling');
+    el.style.top  = r.top  + 'px';
+    el.style.left = r.left + 'px';
+    el.style.transform = 'rotate(0deg)';
+
+    // posizione/rotazione finale (atterra sopra la pila)
+    const jitterX = Math.random() * (viewW - Math.min(r.width, viewW * 0.8));
+    const rot     = (Math.random() * 80 - 40); // -40°..+40°
+    const delay   = 40 * (idx % 10);           // un filo di cascata
+
+    setTimeout(() => {
+      // sposta verso il bordo superiore della pila (vista)
+      const topFinal = pileRect.top + 10 + Math.random() * (pileRect.height - Math.min(r.height, pileRect.height - 20));
+      el.style.top  = topFinal + 'px';
+      el.style.left = jitterX + 'px';
+      el.style.transform = `rotate(${rot}deg)`;
+    }, delay);
+
+    // quando finisce la transizione, “incastra” l'elemento dentro #pile
+    el.addEventListener('transitionend', function onEnd(e) {
+      if (e.propertyName !== 'top') return; // una sola volta
+      el.removeEventListener('transitionend', onEnd);
+
+      // calcola posizioni relative dentro la pila
+      const pr = pile.getBoundingClientRect();
+      const cur = el.getBoundingClientRect();
+
+      // append nel DOM sotto #pile per restare “accatastato”
+      pile.appendChild(el);
+
+      // stato definitivo "piled"
+      el.classList.remove('falling');
+      el.classList.add('piled');
+
+      // posizioni relative (absolute dentro #pile)
+      el.style.top    = (cur.top - pr.top) + 'px';
+      el.style.left   = (cur.left - pr.left) + 'px';
+      el.style.bottom = 'auto';
+      el.style.right  = 'auto';
+      el.style.transition = 'none'; // niente ulteriori animazioni
+
+      // piccolo jitter finale per più caos
+      const tweakX = (Math.random() * 30 - 15);
+      const tweakY = (Math.random() * 18 - 9);
+      const extraR = (Math.random() * 14 - 7);
+      requestAnimationFrame(() => {
+        el.style.transform = `translate(${tweakX}px, ${tweakY}px) rotate(${rot + extraR}deg)`;
+      });
+    }, { once: true });
+  });
+}
+
+/* Trigger automatico quando arrivi quasi a fondo pagina */
+window.addEventListener('scroll', () => {
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  if (!hasFallen && window.scrollY > maxScroll - 180) {
+    collapseToPile();
+  }
+});
+
+/* (Opzionale) Per test: premi "F" per far collassare tutto subito */
+window.addEventListener('keydown', (e) => {
+  if (e.key.toLowerCase() === 'f') collapseToPile();
+});
+  </script>
+<!-- Pila dove si accumulano i pezzi -->
+<div id="pile"></div>
 </body>
 </html>
