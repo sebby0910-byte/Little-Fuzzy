@@ -8,7 +8,7 @@
     html, body {
       margin: 0;
       height: 100%;
-      background: #000;
+      background: rgb(48, 18, 213);
       color: #ffffff;
       font-family: "Courier New", monospace;
       overflow-x: hidden;
@@ -24,7 +24,7 @@
       display: flex;
       align-items: center;
       padding: 1.5rem 2rem;
-      background: rgba(0,0,0,0.8);
+      background: rgb(48, 18, 213);
       z-index: 1000;
     }
     .top-nav a {
@@ -35,7 +35,7 @@
       font-size: 0.9rem;
     }
     .top-nav a:hover {
-      color: #65CB05;
+      color: #FF6D00;
     }
 
     /* GLOBO */
@@ -83,7 +83,7 @@
 
     /* SEZIONE TESTO */
     .stage {
-      background: #000;
+      background: #3012d5;
       padding: 80px 5vw;
       box-sizing: border-box;
     }
@@ -147,6 +147,51 @@
     .access-button:hover {
       background: #65CB05;
       color: #000;
+    }
+
+    /* --- MEDIA QUERY RESPONSIVE --- */
+    @media (max-width: 768px) {
+      /* riduco dimensioni globo */
+      .ascii-sphere {
+        width: 70vw;
+        height: 70vw;
+      }
+      .globe-label {
+        font-size: 0.7rem;
+        margin-top: 1rem;
+      }
+
+      /* log e poem in colonna */
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+      }
+      .log, .poem {
+        width: 100%;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        text-align: left;
+        margin-bottom: 1rem;
+      }
+
+      /* navbar più compatta */
+      .top-nav {
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+      .top-nav a {
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+      }
+
+      /* bottone più grande e centrato */
+      .access-button {
+        width: 80%;
+        max-width: 300px;
+        font-size: 1rem;
+        margin: 4rem auto;
+      }
     }
   </style>
 </head>
@@ -353,6 +398,10 @@
       observer.observe(firstLog);
     });
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
